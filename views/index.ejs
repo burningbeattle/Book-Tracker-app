@@ -1,0 +1,36 @@
+<%- include('partials/header') %>
+
+<main>
+    <h2>My Books</h2>
+    
+    <% if (books && books.length > 0) { %>
+        <div class="books-grid">
+            <% books.forEach(book => { %>
+                <div class="book-card">
+                    <% if (book.cover_url) { %>
+                        <img src="<%= book.cover_url %>" alt="<%= book.title %>">
+                    <% } else { %>
+                        <img src="https://via.placeholder.com/200x300?text=No+Cover" alt="No cover available">
+                    <% } %>
+                    <h3><%= book.title %></h3>
+                    <p><i class="fas fa-user-edit"></i> <%= book.author %></p>
+                    <div class="rating">
+                        <% for(let i = 0; i < 5; i++) { %>
+                            <i class="fas fa-star <%= i < book.rating ? 'filled' : '' %>"></i>
+                        <% } %>
+                    </div>
+                    <a href="/books/<%= book.id %>" class="view-details">View Details</a>
+                </div>
+            <% }) %>
+        </div>
+    <% } else { %>
+        <div class="empty-state">
+            <p>No books added yet! Start building your collection.</p>
+            <a href="/books/new" class="add-book-btn">
+                <i class="fas fa-plus"></i> Add Your First Book
+            </a>
+        </div>
+    <% } %>
+</main>
+
+<%- include('partials/footer') %>
